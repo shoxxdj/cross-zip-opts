@@ -11,7 +11,7 @@ var fs = require('fs')
 var os = require('os')
 var path = require('path')
 
-function zip (inPath, outPath, cb) {
+function zip (inPath, outPath, opts ,cb) {
   if (!cb) cb = function () {}
   if (process.platform === 'win32') {
     fs.stat(inPath, function (err, stats) {
@@ -19,11 +19,11 @@ function zip (inPath, outPath, cb) {
       if (stats.isFile()) {
         copyToTemp()
       } else {
-        doZip()
+        doZip(inPath, outPath, opts)
       }
     })
   } else {
-    doZip()
+    doZip(inPath, outPath,opts)
   }
 
   // Windows zip command cannot zip files, only directories. So move the file into
@@ -37,25 +37,30 @@ function zip (inPath, outPath, cb) {
         fs.writeFile(path.join(tmpPath, path.basename(inPath)), inFile, function (err) {
           if (err) return cb(err)
           inPath = tmpPath
-          doZip()
+          doZip(inPath, outPath,opts)
         })
       })
     })
   }
 
   // Windows zip command does not overwrite existing files. So do it manually first.
-  function doZip () {
+  function doZip (inPath, outPath,opts) {
     if (process.platform === 'win32') {
       fs.rmdir(outPath, { recursive: true, maxRetries: 3 }, doZip2)
     } else {
-      doZip2()
+      doZip2(inPath, outPath,opts)
     }
   }
 
-  function doZip2 () {
-    var opts = {
-      cwd: path.dirname(inPath),
-      maxBuffer: Infinity
+  function doZip2 (inPath, outPath, opts) {
+    if(!opts){
+      var opts = {
+        cwd: path.dirname(inPath),
+        maxBuffer: Infinity
+      }
+    }
+    else if(!opts.maxBuffer){
+       opts.maxBuffer=Infinity
     }
     cp.execFile(getZipCommand(), getZipArgs(inPath, outPath), opts, function (err) {
       cb(err)
