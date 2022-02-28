@@ -1,7 +1,7 @@
 {
   "name": "cross-zip-opts",
   "description": "Cross-platform .zip file creation // Fork of @feross with support for opts",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": {
     "name": "shoxxdj",
     "email": "shoxx@shoxxdj.fr",
