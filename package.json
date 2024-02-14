@@ -1,0 +1,46 @@
+{
+  "name": "cross-zip-opts",
+  "description": "Cross-platform .zip file creation // Fork of @feross with support for opts",
+  "version": "4.0.1",
+  "author": {
+    "name": "shoxxdj",
+    "email": "shoxx@shoxxdj.fr",
+    "url": "shoxxdj.fr"
+  },
+  "bugs": {
+    "url": "https://github.com/shoxxdj/cross-zip-opts/issues"
+  },
+  "devDependencies": {
+    "standard": "*",
+    "tape": "^5.0.0"
+  },
+  "homepage": "https://github.com/shoxxdj/cross-zip-opts",
+  "keywords": [
+    "ZIP",
+    "cross platform",
+    "cross-platform",
+    "linux",
+    "mac",
+    "os x",
+    "windows",
+    "zip"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shoxxdj/cross-zip-opts.git"
+  },
+  "scripts": {
+    "test": "standard && tape test/*.js"
+  },
+  "engines": {
+    "node": ">=12.10"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/shoxxdj"
+    }
+  ]
+}
